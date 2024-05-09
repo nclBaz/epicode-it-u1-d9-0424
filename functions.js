@@ -53,7 +53,7 @@ sayHello("Diego") // Quando invoco la funzione, in quel momento stabilisco che v
 sayHello("Francesca") // In questo altro caso sarà "Francesca"
 sayHello() // Se non passo niente nelle parentesi il valore del parametro sarà UNDEFINED
 
-// ---------------- Esempio di funzione con parametri e con valore di ritorno ------------------
+// ---------------- Esempio di funzione con parametro e con valore di ritorno ------------------
 function returnHello(personName) {
   // personName è una variabile che esisterà solo da questa graffa alla graffa di chiusura della funzione
   // if (personName!== undefined) {
@@ -73,3 +73,82 @@ const return2 = returnHello("Teo") // "Ciao TEO!"
 console.log("RETURN2: ", return2)
 const return3 = returnHello() // "DEVI INSERIRE UN NOME!"
 console.log("RETURN3: ", return3)
+
+// ---------------- Esempio di funzione con 2 parametri e con valore di ritorno ------------------
+
+function superSum(num1, num2) {
+  const result = num1 + num2
+  return result
+  // return num1 + num2 // <-- Potrei direttamente fare anche così per accorciare il codice
+}
+
+console.log(superSum(2, 2))
+console.log(superSum(3, 4))
+console.log(superSum(1000, 2000))
+console.log(superSum(2)) // Se passo solo un parametro mi ritornerà NaN (Not a Number)
+
+const finalResult = superSum(1000, 1000) + superSum(2000, 2000)
+console.log("FINAL RESULT: ", finalResult) // <-- 6000
+
+// ---------------- Esempio di funzione con parametro di default ------------------
+function saluti(persona = "Mario") {
+  console.log("Ciao " + persona)
+}
+
+saluti("Giorgio")
+saluti()
+
+// -------------------------- HOISTING (Sollevamento) -----------------------------
+// In JS un comportamento un po' 'anomalo' e quello dell'hoisting, cioè il fatto che la dichiarazione di una funzione può avvenire anche sotto al suo utilizzo. Ciò avviene anche sulle variabili dichiarate con VAR, e questa è una delle ragioni per le quali è sconsigliato l'utilizzo di var in favore invece di let e const. Per le funzioni l'hoisting non è un problema come lo è per le variabile.
+
+// salutiConHoisting("Giorgio")
+// salutiConHoisting()
+
+// function salutiConHoisting(persona = "Mario") {
+//   console.log("Ciao " + persona)
+// }
+
+// Una maniera per prevenire l'hoisting anche nel caso delle funzioni è dichiarare le funzioni con const nomeFunzione = function(){}. Essendo questa ora una const NON segue le regole dell'hoisting.
+// Alcuni developer preferiscono questa sintassi proprio per essere sicuri di non utilizzare una funzione prima della sua dichiarazione, adottando quindi un approccio più naturale e lineare
+
+// salutiSenzaHoisting("Giorgio") <-- NON POSSO FARLO se la funzione è CONST/LET
+const salutiSenzaHoisting = function (persona = "Mario") {
+  console.log("Ciao " + persona)
+}
+
+salutiSenzaHoisting("Giorgio")
+
+// --------------------------------------- SCOPE (Ambito o visibilità) -----------------
+
+const x = "X"
+function qualsiasi() {
+  const y = "Y" // y è una variabile INTERNA alla funzione, pertanto sarà visibile solo dal momento in cui è stata definita, fino alla fine della funzione
+  // const x = "ICS" // Se ridichiarassi una variabile INTERNA con stesso nome di una ESTERNA, quella interna avrebbe priorità
+  console.log(x) // X è una variabile ESTERNA, quindi sarà visibile dentro e fuori dalla funzione
+  console.log(y)
+}
+
+console.log(x) // è visibile
+//console.log(y) // NON è visibile
+qualsiasi()
+
+// ------------------------------------------- ARROW FUNCTIONS ------------------------------
+// Sono funzioni che consentono di adottare una sintassi alternativa a quella classica e più sintentica
+// Ad esempio consentono di non utilizzare le parentesi graffe quando l'istruzione nel body del funzione è una sola, in tal caso la freccia => sostituisce il return
+// Se avessi bisogno di più istruzioni nel body basta aprire come sempre le graffe
+
+const salutiArrow = (persona = "Mario") => {
+  const variabile = "CIAO"
+  // la freccia è fatta da '=' e '>'
+  console.log(variabile + persona)
+}
+
+const quadratoNumero = function (numero) {
+  return numero * numero
+}
+
+const quadratoNumeroArrow = numero => numero * numero
+const sumArrow = (num1, num2) => num1 + num2
+
+quadratoNumeroArrow(10) // -> 100
+const senzaParametri = () => console.log("CIAO")
